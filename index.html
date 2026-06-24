@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blue Collar AI × Fields Auto Works — Engagement Hub</title>
+<meta name="description" content="Deliverables hub for the Blue Collar AI engagement with Fields Auto Works: proposal, AI growth blueprint, and roadmap walkthrough.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root{
+    --ink:#14181E; --ink2:#15181E; --paper:#FBFAF6;
+    --orange:#E8590C; --blue:#1C3F6E;
+    --t1:#ffffff; --t2:#C2BEB5; --t3:#9A968E; --line:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink); color:var(--t2);
+    font-family:'Newsreader',serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .grid-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+    background-size:34px 34px;
+  }
+  .edge{position:fixed; top:0; left:0; width:8px; height:100%; background:var(--orange); z-index:2;}
+  .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 28px 90px 40px;}
+  .mono{font-family:'Space Mono',monospace;}
+  .kicker{font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--orange); font-weight:700;}
+
+  /* top bar */
+  header.bar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 0 22px; border-bottom:1px solid var(--line); margin-bottom:64px;
+  }
+  .wordmark{font-family:'Space Mono',monospace; font-weight:700; font-size:15px; letter-spacing:.42em; color:#fff;}
+  .bar .right{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.3em; color:var(--orange);}
+
+  /* hero */
+  .hero{padding:8px 0 60px;}
+  .hero h1{
+    font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(40px,7vw,76px);
+    line-height:.98; letter-spacing:-.02em; color:#fff; margin:22px 0 0;
+  }
+  .hero h1 .accent{color:var(--orange);}
+  .hero .lede{font-size:clamp(17px,2vw,20px); line-height:1.55; color:var(--t2); max-width:620px; margin:26px 0 0;}
+  .note{
+    font-style:italic; font-size:15px; line-height:1.55; color:var(--t3); max-width:620px;
+    margin:30px 0 0; border-left:2px solid var(--orange); padding-left:18px;
+  }
+
+  /* section heading */
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin:0 0 26px; border-top:1px solid var(--line); padding-top:34px;}
+  .sec-head h2{font-family:'Archivo',sans-serif; font-weight:800; font-size:24px; letter-spacing:-.01em; color:#fff;}
+  .sec-head .count{margin-left:auto; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.18em; color:var(--t3);}
+
+  /* deliverable cards */
+  .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px;}
+  .card{
+    position:relative; background:var(--ink2); border:1px solid rgba(255,255,255,.08);
+    border-top:3px solid var(--orange); padding:26px 26px 24px; display:flex; flex-direction:column;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);}
+  .card.blue{border-top-color:var(--blue);}
+  .card .tag{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;}
+  .card .type{font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--orange); font-weight:700;}
+  .card.blue .type{color:#7FA8DC;}
+  .card .meta{font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; color:var(--t3);}
+  .card h3{font-family:'Archivo',sans-serif; font-weight:700; font-size:21px; color:#fff; margin:0 0 8px; line-height:1.15;}
+  .card p{font-size:14.5px; line-height:1.55; color:var(--t2); margin:0 0 20px;}
+  .card .actions{margin-top:auto; display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font-family:'Archivo',sans-serif; font-weight:700;
+    font-size:13.5px; text-decoration:none; padding:11px 18px; border:1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{background:#ff6a1a;}
+  .btn-ghost{background:transparent; color:#fff; border-color:rgba(255,255,255,.22);}
+  .btn-ghost:hover{border-color:#fff;}
+  .btn .arr{font-family:'Space Mono',monospace;}
+  audio{width:100%; margin:0 0 18px; filter:invert(.06);}
+
+  /* placeholder / "room for more" card */
+  .card.placeholder{
+    border:1px dashed rgba(255,255,255,.18); border-top:1px dashed rgba(255,255,255,.18);
+    background:transparent; align-items:flex-start; justify-content:center; min-height:200px; color:var(--t3);
+  }
+  .card.placeholder:hover{transform:none; border-color:rgba(255,255,255,.3);}
+  .card.placeholder .type{color:var(--t3);}
+  .card.placeholder p{color:var(--t3); font-style:italic; margin:0;}
+
+  /* footer */
+  footer{margin-top:70px; border-top:1px solid var(--line); padding-top:34px;}
+  .contact{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:22px;}
+  .contact .lbl{font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; color:var(--orange); margin-bottom:7px;}
+  .contact .val{font-family:'Archivo',sans-serif; font-weight:700; font-size:14.5px; color:#fff;}
+  .contact .sub{font-size:13.5px; color:var(--t2); line-height:1.45;}
+  .sign{display:flex; justify-content:space-between; align-items:center; margin-top:30px; flex-wrap:wrap; gap:12px;}
+  .sign .tagline{font-style:italic; font-size:14px; color:var(--t3);}
+  .sign .wm{font-family:'Space Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.34em; color:#fff;}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="edge"></div>
+
+<div class="wrap">
+  <header class="bar">
+    <div class="wordmark">BLUE COLLAR AI</div>
+    <div class="right">FOR FIELDS AUTO WORKS · 2026</div>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">AI Implementation &amp; Growth — Engagement Hub</div>
+    <h1>A Practical AI Roadmap<br>for <span class="accent">Fields Auto Works</span></h1>
+    <p class="lede">Everything from the engagement in one place — the full proposal, the AI growth blueprint, and a recorded walkthrough. Built to grow as the work does.</p>
+    <p class="note">It was a pleasure meeting you at the AI presentation at Muirfield Country Club in Dublin, OH. The materials below lay out exactly how Blue Collar AI can help Fields Auto Works grow.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="kicker">Deliverables</div>
+      <h2>What's Here</h2>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="cards">
+
+      <!-- Proposal -->
+      <article class="card">
+        <div class="tag"><span class="type">Document · Web</span><span class="meta">9 PAGES</span></div>
+        <h3>The AI Implementation Proposal</h3>
+        <p>The complete phased plan — executive summary, research findings, the three-phase rollout, engagement model, and next steps. Renders in your browser and prints to letter-size PDF.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="proposal.html">View Proposal <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="proposal.html" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+      </article>
+
+      <!-- Blueprint deck -->
+      <article class="card blue">
+        <div class="tag"><span class="type">Presentation</span><span class="meta">PPTX · 17 MB</span></div>
+        <h3>AI Growth Blueprint</h3>
+        <p>The slide deck companion to the proposal — the same roadmap framed for presenting, with the phased strategy and supporting detail laid out slide by slide.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="artifacts/FAW_AI_Growth_Blueprint.pptx" download>Download Deck <span class="arr">↓</span></a>
+        </div>
+      </article>
+
+      <!-- Audio walkthrough -->
+      <article class="card">
+        <div class="tag"><span class="type">Audio Walkthrough</span><span class="meta">M4A · 40 MB</span></div>
+        <h3>Roadmap, Out Loud</h3>
+        <p>A recorded walkthrough of the AI roadmap for Fields Auto Works — listen straight through here, or download for the drive.</p>
+        <audio controls preload="none" src="artifacts/AI_Roadmap_for_Fields_Auto_Works.m4a"></audio>
+        <div class="actions">
+          <a class="btn btn-ghost" href="artifacts/AI_Roadmap_for_Fields_Auto_Works.m4a" download>Download Audio <span class="arr">↓</span></a>
+        </div>
+      </article>
+
+      <!-- Room for more -->
+      <article class="card placeholder">
+        <div class="tag"><span class="type">Coming Soon</span></div>
+        <p>More deliverables drop in here as the engagement moves forward.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="contact">
+      <div>
+        <div class="lbl">PREPARED FOR</div>
+        <div class="val">Ingrid Fields</div>
+        <div class="sub">Fields Auto Works<br>8525 Rausch Dr, Suite B<br>Plain City, OH 43064<br>614-397-6363</div>
+      </div>
+      <div>
+        <div class="lbl">PREPARED BY</div>
+        <div class="val">Christopher Peer</div>
+        <div class="sub">Founding AI Architect<br>Blue Collar AI<br>Lewis Center, OH 43035<br>614-633-7935</div>
+      </div>
+      <div>
+        <div class="lbl">DATE</div>
+        <div class="val">June 24, 2026</div>
+      </div>
+    </div>
+    <div class="sign">
+      <span class="tagline">Practical AI for businesses that build real things.</span>
+      <span class="wm">BLUE COLLAR AI</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Count of live (non-placeholder) deliverables.
+  var live = document.querySelectorAll('.card:not(.placeholder)').length;
+  document.getElementById('count').textContent = String(live).padStart(2,'0') + ' ITEMS';
+</script>
+</body>
+</html>

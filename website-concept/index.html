@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fields Auto Works — Hand-Built Street-Legal Track Cars | Plain City, OH</title>
+<meta name="description" content="Fields Auto Works builds lightweight, street-legal track cars by hand in Plain City, Ohio. GT-class pace without the GT-class price. Cardinal Coupe, Scioto Coupe, and TRZ Roadster.">
+<link rel="icon" href="https://fieldsautoworks.com/wp-content/uploads/2021/05/cropped-favicon-270x270.png">
+<meta property="og:title" content="Fields Auto Works — Hand-Built Street-Legal Track Cars">
+<meta property="og:description" content="Lightweight, formula-suspension track cars built by hand in Ohio. IndyCar & IMSA pedigree.">
+<meta property="og:image" content="https://fieldsautoworks.com/wp-content/uploads/2025/03/0069_SYN0954.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --asphalt:#0E0F11;
+  --carbon:#17191D;
+  --carbon-2:#1F2228;
+  --paddock:#F2EFE9;
+  --aluminum:#9AA0A8;
+  --aluminum-dim:#6B7077;
+  --hairline:rgba(242,239,233,.12);
+  --hairline-strong:rgba(242,239,233,.22);
+  --red:#C8102E;
+  --red-bright:#E11932;
+  --amber:#F2C200;
+  --maxw:1280px;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--asphalt);
+  color:var(--paddock);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+/* mono utility / build-sheet labels (the signature texture) */
+.mono{font-family:var(--mono);letter-spacing:.04em}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--red-bright);font-weight:500;
+}
+.eyebrow.dim{color:var(--aluminum)}
+
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.01em}
+.disp-xl{font-size:clamp(44px,7vw,104px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.94}
+.disp-l{font-size:clamp(34px,4.6vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.015em;line-height:.96}
+.disp-m{font-size:clamp(26px,3vw,40px);font-weight:800;text-transform:uppercase}
+
+/* ============ TOP DATA STRIP ============ */
+.strip{
+  background:var(--asphalt);
+  border-bottom:1px solid var(--hairline);
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--aluminum-dim);
+}
+.strip .wrap{display:flex;justify-content:space-between;align-items:center;height:34px}
+.strip .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--amber);margin-right:8px;vertical-align:middle;box-shadow:0 0 0 0 rgba(242,194,0,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,194,0,.55)}70%{box-shadow:0 0 0 7px rgba(242,194,0,0)}100%{box-shadow:0 0 0 0 rgba(242,194,0,0)}}
+.strip .right span{color:var(--paddock)}
+@media(max-width:760px){.strip .left{display:none}.strip .wrap{justify-content:center}}
+
+/* ============ HEADER ============ */
+header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(14,15,17,.72);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hairline);
+  transition:background .3s,border-color .3s,height .3s;
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px;transition:height .3s}
+header.shrunk .nav{height:64px}
+.brand{display:flex;flex-direction:column;line-height:1}
+.brand .name{font-family:var(--display);font-weight:900;font-size:20px;letter-spacing:.02em;text-transform:uppercase}
+.brand .sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.34em;color:var(--aluminum-dim);text-transform:uppercase;margin-top:4px}
+.brand .name b{color:var(--red-bright)}
+.navlinks{display:flex;gap:34px;align-items:center}
+.navlinks a{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--aluminum);transition:color .2s;position:relative}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1.5px;background:var(--red-bright);transition:width .25s}
+.navlinks a:hover{color:var(--paddock)}
+.navlinks a:hover::after{width:100%}
+.btn{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;
+  padding:13px 22px;border:1px solid var(--red);background:var(--red);color:#fff;
+  cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s;display:inline-block;
+}
+.btn:hover{background:var(--red-bright);transform:translateY(-1px);box-shadow:0 8px 24px -10px rgba(225,25,50,.8)}
+.btn.ghost{background:transparent;color:var(--paddock);border-color:var(--hairline-strong)}
+.btn.ghost:hover{border-color:var(--paddock);background:rgba(242,239,233,.06);box-shadow:none}
+.btn.lg{padding:17px 30px;font-size:13px}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.burger span{width:24px;height:2px;background:var(--paddock);transition:.3s}
+@media(max-width:980px){
+  .navlinks{position:fixed;inset:0 0 0 auto;width:min(82vw,360px);background:var(--carbon);
+    flex-direction:column;justify-content:center;gap:26px;transform:translateX(100%);transition:transform .35s;border-left:1px solid var(--hairline);z-index:70}
+  .navlinks.open{transform:translateX(0)}
+  .navlinks a{font-size:16px}
+  .burger{display:flex;z-index:80}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav .btn.head-cta{display:none}
+}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:calc(100vh - 118px);display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 60%;transform:scale(1.06);animation:kenburns 18s ease-out forwards}
+@keyframes kenburns{to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(14,15,17,.55) 0%,rgba(14,15,17,.2) 38%,rgba(14,15,17,.78) 82%,var(--asphalt) 100%),
+             linear-gradient(90deg,rgba(14,15,17,.8) 0%,rgba(14,15,17,0) 55%)}
+.hero-inner{position:relative;z-index:2;width:100%;padding-bottom:0}
+.hero h1{margin:18px 0 0}
+.hero h1 .red{color:var(--red-bright)}
+.hero .lede{max-width:540px;margin-top:24px;font-size:clamp(16px,1.4vw,19px);color:#D9D6CF}
+.hero .cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.hero-data{
+  margin-top:48px;border-top:1px solid var(--hairline-strong);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.hero-data .cell{padding:20px 24px 26px 0;border-right:1px solid var(--hairline)}
+.hero-data .cell:last-child{border-right:none}
+.hero-data .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--aluminum-dim)}
+.hero-data .v{font-family:var(--display);font-weight:800;font-size:clamp(20px,2.2vw,30px);margin-top:8px;text-transform:uppercase}
+.hero-data .v small{font-family:var(--mono);font-size:12px;color:var(--aluminum);font-weight:400;letter-spacing:.05em}
+@media(max-width:760px){
+  .hero-data{grid-template-columns:repeat(2,1fr)}
+  .hero-data .cell{border-bottom:1px solid var(--hairline)}
+  .hero-data .cell:nth-child(2){border-right:none}
+}
+
+/* ============ MARQUEE / CREDS ============ */
+.creds{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:var(--carbon);overflow:hidden}
+.creds-track{display:flex;gap:0;white-space:nowrap;animation:scroll 30s linear infinite}
+.creds:hover .creds-track{animation-play-state:paused}
+.creds-track span{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--aluminum);padding:18px 36px;border-right:1px solid var(--hairline);display:flex;align-items:center;gap:14px}
+.creds-track span b{color:var(--red-bright);font-weight:700}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.creds-track{animation:none}.hero-bg img{animation:none;transform:none}}
+
+/* ============ SECTION SHELL ============ */
+section{position:relative}
+.sec{padding:120px 0}
+.sec-head{max-width:760px;margin-bottom:64px}
+.sec-head h2{margin-top:16px}
+.sec-head p{margin-top:22px;font-size:18px;color:var(--aluminum)}
+.idx{font-family:var(--mono);color:var(--red);font-weight:700}
+
+/* ============ POSITIONING ============ */
+.pos{border-top:1px solid var(--hairline)}
+.pos .grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.pos .lead{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.4vw,32px);line-height:1.25;text-transform:none;letter-spacing:-.01em}
+.pos .lead em{color:var(--red-bright);font-style:normal}
+.pos .body p{color:var(--aluminum);margin-bottom:18px;font-size:16px}
+.pos .body p:last-child{margin-bottom:0}
+@media(max-width:900px){.pos .grid{grid-template-columns:1fr;gap:40px}}
+
+/* ============ MODELS ============ */
+.models{background:var(--carbon);border-top:1px solid var(--hairline)}
+.model{display:grid;grid-template-columns:1.15fr 1fr;gap:0;align-items:stretch;border-top:1px solid var(--hairline)}
+.model:first-of-type{border-top:none}
+.model .ph{position:relative;overflow:hidden;min-height:520px}
+.model .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.model:hover .ph img{transform:scale(1.05)}
+.model .ph .tagnum{position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--paddock);background:rgba(14,15,17,.6);backdrop-filter:blur(6px);padding:8px 12px;border:1px solid var(--hairline-strong)}
+.model.rev{grid-template-columns:1fr 1.15fr}
+.model.rev .ph{order:2}
+.model .content{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;background:var(--asphalt)}
+.model .content .layout{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--red-bright)}
+.model .content h3{font-size:clamp(38px,4.5vw,60px);margin:14px 0 0;text-transform:uppercase;font-weight:900}
+.model .content .blurb{color:var(--aluminum);margin-top:18px;font-size:16px;max-width:46ch}
+/* build sheet */
+.spec{margin-top:30px;border-top:1px solid var(--hairline)}
+.spec .row{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.spec .item{padding:14px 0;border-bottom:1px solid var(--hairline);padding-right:20px}
+.spec .item:nth-child(odd){border-right:1px solid var(--hairline);padding-right:24px}
+.spec .item:nth-child(even){padding-left:24px}
+.spec .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--aluminum-dim)}
+.spec .sv{font-family:var(--display);font-weight:800;font-size:20px;margin-top:5px;text-transform:uppercase}
+.spec .sv small{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--aluminum);letter-spacing:.04em}
+/* pricing */
+.price{display:flex;gap:40px;margin-top:32px;flex-wrap:wrap}
+.price .pcol .pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--aluminum-dim)}
+.price .pcol .pv{font-family:var(--display);font-weight:900;font-size:30px;margin-top:4px}
+.price .pcol .pv .cur{color:var(--red-bright)}
+.model .actions{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.pnote{font-family:var(--mono);font-size:11px;color:var(--aluminum-dim);margin-top:18px;letter-spacing:.02em;line-height:1.7}
+@media(max-width:980px){
+  .model,.model.rev{grid-template-columns:1fr}
+  .model.rev .ph{order:0}
+  .model .ph{min-height:340px}
+  .model .content{padding:48px 28px}
+}
+
+/* ============ PROCESS ============ */
+.process{border-top:1px solid var(--hairline)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);margin-top:8px}
+.step{background:var(--asphalt);padding:38px 28px 44px}
+.step .n{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:700;letter-spacing:.1em}
+.step h4{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;margin:18px 0 12px}
+.step p{color:var(--aluminum);font-size:14.5px}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* ============ GALLERY ============ */
+.gallery{background:var(--carbon);border-top:1px solid var(--hairline)}
+.grid-g{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+.grid-g figure{overflow:hidden;position:relative;cursor:pointer;background:var(--asphalt)}
+.grid-g img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s;filter:grayscale(.15)}
+.grid-g figure:hover img{transform:scale(1.08);filter:grayscale(0)}
+.grid-g figure::after{content:"";position:absolute;inset:0;border:1px solid transparent;transition:border-color .3s}
+.grid-g figure:hover::after{border-color:var(--red)}
+.g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
+@media(max-width:900px){.grid-g{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}.g-wide{grid-column:span 2}}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(8,9,10,.95);z-index:100;display:none;align-items:center;justify-content:center;padding:40px}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:88vh;object-fit:contain;border:1px solid var(--hairline-strong)}
+.lb .x{position:absolute;top:24px;right:30px;font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--paddock);cursor:pointer;border:1px solid var(--hairline-strong);padding:10px 16px}
+.lb .nav-btn{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:24px;color:var(--paddock);cursor:pointer;padding:16px 20px;user-select:none;background:rgba(23,25,29,.6);border:1px solid var(--hairline)}
+.lb .prev{left:24px}.lb .next{right:24px}
+
+/* ============ PRESS ============ */
+.press{border-top:1px solid var(--hairline)}
+.press-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.press-card{border:1px solid var(--hairline);background:var(--carbon);transition:transform .3s,border-color .3s}
+.press-card:hover{transform:translateY(-4px);border-color:var(--hairline-strong)}
+.press-card .pimg{aspect-ratio:16/9;overflow:hidden}
+.press-card .pimg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.press-card:hover .pimg img{transform:scale(1.05)}
+.press-card .pbody{padding:24px}
+.press-card .src{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red-bright)}
+.press-card h4{font-family:var(--display);font-weight:700;font-size:18px;margin-top:12px;text-transform:none;letter-spacing:0;line-height:1.25}
+.press-card .go{font-family:var(--mono);font-size:12px;color:var(--aluminum);margin-top:16px;display:inline-block}
+.press-card:hover .go{color:var(--paddock)}
+@media(max-width:900px){.press-grid{grid-template-columns:1fr}}
+
+/* ============ ABOUT / TEAM ============ */
+.about{background:var(--carbon);border-top:1px solid var(--hairline)}
+.about .grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.about .photo{min-height:480px;position:relative;overflow:hidden}
+.about .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.about .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,15,17,0) 60%,var(--carbon) 100%)}
+.about .copy{padding:96px 64px}
+.about .copy h2{margin:16px 0 26px}
+.about .copy p{color:var(--aluminum);margin-bottom:18px;font-size:16px}
+.about .copy p b{color:var(--paddock)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hairline);margin-top:34px}
+.facts .f{padding:24px 0;border-right:1px solid var(--hairline)}
+.facts .f:last-child{border-right:none}
+.facts .fn{font-family:var(--display);font-weight:900;font-size:34px;color:var(--paddock)}
+.facts .fl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--aluminum-dim);margin-top:6px}
+@media(max-width:900px){.about .grid{grid-template-columns:1fr}.about .photo{min-height:300px}.about .copy{padding:56px 28px}}
+
+/* ============ CONTACT ============ */
+.contact{border-top:1px solid var(--hairline)}
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+.field{margin-bottom:22px}
+.field label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aluminum);display:block;margin-bottom:9px}
+.field input,.field textarea,.field select{
+  width:100%;background:var(--carbon);border:1px solid var(--hairline-strong);color:var(--paddock);
+  padding:14px 16px;font-family:var(--body);font-size:15px;transition:border-color .2s;border-radius:0;
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--red)}
+.field textarea{resize:vertical;min-height:120px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.formnote{font-family:var(--mono);font-size:11px;color:var(--aluminum-dim);margin-top:8px}
+.cinfo .block{padding:26px 0;border-bottom:1px solid var(--hairline)}
+.cinfo .block:first-child{padding-top:0}
+.cinfo .ck{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red-bright);margin-bottom:10px}
+.cinfo .cv{font-size:18px;font-family:var(--display);font-weight:700}
+.cinfo .cv a:hover{color:var(--red-bright)}
+.cinfo .small{font-size:15px;color:var(--aluminum);font-family:var(--body);font-weight:400;line-height:1.7}
+.socials{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.socials a{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;border:1px solid var(--hairline-strong);color:var(--aluminum);transition:.2s}
+.socials a:hover{border-color:var(--red);color:var(--paddock)}
+@media(max-width:900px){.contact .grid{grid-template-columns:1fr;gap:48px}}
+
+/* ============ FOOTER ============ */
+footer{background:var(--carbon);border-top:1px solid var(--hairline);padding:64px 0 36px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid var(--hairline)}
+.foot-nav{display:flex;gap:48px;flex-wrap:wrap}
+.foot-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--aluminum-dim);margin-bottom:16px}
+.foot-col a{display:block;color:var(--aluminum);font-size:14px;margin-bottom:10px;transition:.2s}
+.foot-col a:hover{color:var(--paddock)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:30px;flex-wrap:wrap;gap:14px}
+.foot-bottom .copy{font-family:var(--mono);font-size:11px;color:var(--aluminum-dim);letter-spacing:.04em}
+.foot-brand .name{font-family:var(--display);font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:.02em}
+.foot-brand .name b{color:var(--red-bright)}
+.foot-brand .tl{font-family:var(--mono);font-size:11px;color:var(--aluminum);letter-spacing:.1em;margin-top:8px;max-width:280px;line-height:1.6}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- DATA STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <div class="left">FIELDS AUTO WORKS · PLAIN CITY, OHIO · EST. 2017</div>
+    <div class="right"><span class="dot"></span>BUILD SLOTS — <span>NOW BOOKING 2026</span></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Fields Auto Works home">
+      <span class="name">FIELDS<b>·</b>AUTO<b>·</b>WORKS</span>
+      <span class="sub">Hand-Built Track Cars</span>
+    </a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#models">Models</a>
+      <a href="#build">The Build</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#press">Press</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn head-cta">Request Order Guide</a>
+    <div class="burger" id="burger" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0069_SYN0954.jpg" alt="Fields Auto Works Cardinal Coupe at speed on track">
+  </div>
+  <div class="hero-inner">
+    <div class="wrap">
+      <p class="eyebrow">Street-Legal · Track-Built · Made in the USA</p>
+      <h1 class="disp-xl">GT-class pace.<br>Without the<br><span class="red">GT-class price.</span></h1>
+      <p class="lede">Hand-built, ultra-lightweight sports cars with formula-style pull-rod suspension and genuine racing pedigree — engineered in Ohio to be driven hard, serviced easily, and lapped all day.</p>
+      <div class="cta-row">
+        <a href="#models" class="btn lg">Explore the Models</a>
+        <a href="#contact" class="btn ghost lg">Book a Test Drive</a>
+      </div>
+      <div class="hero-data">
+        <div class="cell"><div class="k">Platforms</div><div class="v">3 <small>Models</small></div></div>
+        <div class="cell"><div class="k">Curb Weight From</div><div class="v">1,650 <small>LB</small></div></div>
+        <div class="cell"><div class="k">Power To</div><div class="v">400 <small>HP</small></div></div>
+        <div class="cell"><div class="k">Pedigree</div><div class="v">IndyCar <small>· IMSA · Can-Am</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDS MARQUEE -->
+<div class="creds" aria-hidden="true">
+  <div class="creds-track" id="creds">
+    <span><b>“</b>The Best Track Car You've Never Heard Of<b>”</b></span>
+    <span>As driven by <b>Randy Pobst</b></span>
+    <span>Featured by <b>Grassroots Motorsports</b></span>
+    <span>Seen at <b>PRI</b></span>
+    <span>GT4 lap times — without the GT4 price</span>
+    <span><b>“</b>The Best Track Car You've Never Heard Of<b>”</b></span>
+    <span>As driven by <b>Randy Pobst</b></span>
+    <span>Featured by <b>Grassroots Motorsports</b></span>
+    <span>Seen at <b>PRI</b></span>
+    <span>GT4 lap times — without the GT4 price</span>
+  </div>
+</div>
+
+<!-- POSITIONING -->
+<section class="sec pos reveal">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow dim">Why Fields Auto Works</p>
+      <p class="lead" style="margin-top:18px">A small Ohio shop building cars the way the exotics should be built — <em>light, honest, and relentlessly serviceable.</em></p>
+    </div>
+    <div class="body">
+      <p>Supercar builders chase headline numbers with carbon and complexity you can't run on a Tuesday. We went the other way. Every Fields chassis is engineered around weight, balance, and the parts you can actually source — so the car that wows you on the dyno is the same car you trust at lap forty.</p>
+      <p>The result is a hand-built, street-legal track car with formula-car pull-rod suspension, a modern powertrain of your choosing, and a price that leaves room in the budget for tires, track days, and the next set of tires.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODELS -->
+<section class="models" id="models">
+  <div class="wrap" style="padding-top:120px">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="idx">01</span> &nbsp;The Lineup</p>
+      <h2 class="disp-l">Three ways<br>to go fast.</h2>
+      <p>Each model is sold as a precision rolling chassis — bring your own powertrain for kit-car street registration, or have us build it turn-key. Pricing below is transparent on both.</p>
+    </div>
+  </div>
+
+  <!-- CARDINAL -->
+  <div class="model reveal" id="cardinal">
+    <div class="ph">
+      <span class="tagnum">MODEL 01 / FRONT-ENGINE COUPE</span>
+      <img src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0022_SYN8394.jpg" alt="Cardinal Coupe on the race track">
+    </div>
+    <div class="content">
+      <div class="layout">Front-Engine · Rear-Drive</div>
+      <h3>Cardinal Coupe</h3>
+      <p class="blurb">Classic 60s sports-car lines over a thoroughly modern chassis. The Cardinal is our cornerstone car — the one that posts GT4-class lap times on a club-racer budget.</p>
+      <div class="spec">
+        <div class="row">
+          <div class="item"><div class="sk">Curb Weight</div><div class="sv">1,800 <small>LB</small></div></div>
+          <div class="item"><div class="sk">Power</div><div class="sv">300 <small>HP / 320 TQ</small></div></div>
+          <div class="item"><div class="sk">Suspension</div><div class="sv" style="font-size:16px">Double A-Arm <small>Pull-Rod</small></div></div>
+          <div class="item"><div class="sk">Dimensions</div><div class="sv" style="font-size:16px">156 × 68 <small>· 92 WB</small></div></div>
+        </div>
+      </div>
+      <div class="price">
+        <div class="pcol"><div class="pk">Rolling Chassis From</div><div class="pv"><span class="cur">$</span>49,999</div></div>
+        <div class="pcol"><div class="pk">Turn-Key Build From</div><div class="pv"><span class="cur">$</span>88,000</div></div>
+      </div>
+      <div class="actions">
+        <a href="#contact" class="btn">Configure &amp; Order Guide</a>
+        <a href="#contact" class="btn ghost">Test Drive the Cardinal</a>
+      </div>
+      <p class="pnote">Rolling-chassis price excludes powertrain. Demonstrated figures use the design-intended powertrain. Options include ABS, adjustable anti-roll bars, auto-blip downshift, A/C and power steering.</p>
+    </div>
+  </div>
+
+  <!-- SCIOTO -->
+  <div class="model rev reveal" id="scioto">
+    <div class="ph">
+      <span class="tagnum">MODEL 02 / MID-ENGINE COUPE</span>
+      <img src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0018_SYN7923.jpg" alt="Scioto Coupe in the pit lane">
+    </div>
+    <div class="content">
+      <div class="layout">Mid-Engine · Rear-Drive</div>
+      <h3>Scioto Coupe</h3>
+      <p class="blurb">Inspired by the great endurance racers and built around a mid-mounted powertrain. The Scioto is the pro-grade flagship — supercar performance and presence at club-level cost.</p>
+      <div class="spec">
+        <div class="row">
+          <div class="item"><div class="sk">Curb Weight</div><div class="sv">1,900 <small>LB</small></div></div>
+          <div class="item"><div class="sk">Power</div><div class="sv">400 <small>HP / 320 TQ</small></div></div>
+          <div class="item"><div class="sk">Suspension</div><div class="sv" style="font-size:16px">Double A-Arm <small>Pull-Rod</small></div></div>
+          <div class="item"><div class="sk">Dimensions</div><div class="sv" style="font-size:16px">171 × 71 <small>· 42 H</small></div></div>
+        </div>
+      </div>
+      <div class="price">
+        <div class="pcol"><div class="pk">Rolling Chassis From</div><div class="pv"><span class="cur">$</span>110,000</div></div>
+        <div class="pcol"><div class="pk">Turn-Key Build From</div><div class="pv"><span class="cur">$</span>244,000</div></div>
+      </div>
+      <div class="actions">
+        <a href="#contact" class="btn">Configure &amp; Order Guide</a>
+        <a href="#contact" class="btn ghost">Test Drive the Scioto</a>
+      </div>
+      <p class="pnote">Rolling-chassis price excludes powertrain. Demonstrated figures use the design-intended powertrain. Pro Motorsports performance package available at club-level pricing.</p>
+    </div>
+  </div>
+
+  <!-- TRZ -->
+  <div class="model reveal" id="trz">
+    <div class="ph">
+      <span class="tagnum">MODEL 03 / OPEN ROADSTER</span>
+      <img src="https://fieldsautoworks.com/wp-content/uploads/2021/05/img-03.jpg" alt="TRZ open roadster">
+    </div>
+    <div class="content">
+      <div class="layout">Front or Mid-Engine · Rear-Drive</div>
+      <h3>TRZ Roadster</h3>
+      <p class="blurb">The thrill of open motoring on the proven platform that underpins the Cardinal. The TRZ is the lightest, purest, most attainable way into a Fields car — built for the joy of the drive.</p>
+      <div class="spec">
+        <div class="row">
+          <div class="item"><div class="sk">Curb Weight</div><div class="sv">1,650 <small>LB</small></div></div>
+          <div class="item"><div class="sk">Power</div><div class="sv">200–400 <small>WHP</small></div></div>
+          <div class="item"><div class="sk">Layout</div><div class="sv" style="font-size:16px">Front / Mid <small>Engine</small></div></div>
+          <div class="item"><div class="sk">Dimensions</div><div class="sv" style="font-size:16px">152 × 70 <small>· 96 WB</small></div></div>
+        </div>
+      </div>
+      <div class="price">
+        <div class="pcol"><div class="pk">Packages From</div><div class="pv"><span class="cur">$</span>79,000</div></div>
+        <div class="pcol"><div class="pk">Configurable</div><div class="pv" style="font-size:20px;color:var(--aluminum)">Front / Mid</div></div>
+      </div>
+      <div class="actions">
+        <a href="#contact" class="btn">Configure &amp; Order Guide</a>
+        <a href="#contact" class="btn ghost">Test Drive the TRZ</a>
+      </div>
+      <p class="pnote">Final specification determined by powertrain selection and layout. Shares chassis, suspension and driveline architecture with the Cardinal and Scioto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec process" id="build">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="idx">02</span> &nbsp;How a Build Works</p>
+      <h2 class="disp-l">From spec sheet<br>to track day.</h2>
+      <p>A Fields car is a collaboration. Four clear stages take you from first conversation to your first session on track.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><div class="n">STEP 01</div><h4>Configure</h4><p>Pick your model, layout, and powertrain. We walk the full option list and lock a build sheet and price — no surprises.</p></div>
+      <div class="step"><div class="n">STEP 02</div><h4>Reserve</h4><p>A deposit secures your build slot. You receive a detailed order guide and a target timeline for your chassis.</p></div>
+      <div class="step"><div class="n">STEP 03</div><h4>Build</h4><p>Our engineers and fabricators hand-assemble your car in Plain City. You get progress updates from the floor throughout.</p></div>
+      <div class="step"><div class="n">STEP 04</div><h4>Track</h4><p>Take delivery, schedule a factory visit, and get track-side setup support. Then go run laps — and come back for more.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap" style="padding:120px 32px">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="idx">03</span> &nbsp;The Work</p>
+      <h2 class="disp-l">Built by hand.<br>Shot on track.</h2>
+      <p>Real cars, real customers, real track days. Click any frame to enlarge.</p>
+    </div>
+    <div class="grid-g reveal" id="grid">
+      <figure class="g-tall"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0081_SYN9252.jpg" alt="Cardinal Coupe accelerating at Homestead"></figure>
+      <figure class="g-wide"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0022_SYN8394.jpg" alt="Cardinal Coupe on the race track"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0001_SYN6233-Edit.jpg" alt="Fields Auto Works detail"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0018_SYN7923.jpg" alt="Scioto Coupe in pit lane"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0020_SYN9642.jpg" alt="Fields car on track"></figure>
+      <figure class="g-tall"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0052_SYN6283.jpg" alt="Cardinal Coupe black and white at Homestead"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0006_RW_0038-Edit.jpg" alt="Fields Auto Works build detail"></figure>
+      <figure class="g-wide"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0069_SYN0954.jpg" alt="Cardinal Coupe green at Homestead"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0034_SYN5873.jpg" alt="Fields car detail"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0031_SYN6605-Edit.jpg" alt="Fields car on track"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/fields-cardinal-coupe-6.jpg" alt="Cardinal Coupe track car"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0017_SYN7825.jpg" alt="Fields car cornering"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/945A3590-scaled.jpg" alt="Fields car at speed"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/301A9617-scaled.jpg" alt="Fields car on track"></figure>
+      <figure class="g-wide"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0004_SYN7915.jpg" alt="Fields car front three-quarter"></figure>
+      <figure><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/945A3122-scaled.jpg" alt="Fields car detail"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="sec press" id="press">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="idx">04</span> &nbsp;In the Press</p>
+      <h2 class="disp-l">Don't take<br>our word for it.</h2>
+    </div>
+    <div class="press-grid reveal">
+      <a class="press-card" href="https://www.youtube.com/watch?v=pG_v_YNU3yI" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/04/The-Best-Track-Car-Youve-Never-Heard-Of.jpg" alt="The Best Track Car You've Never Heard Of"></div>
+        <div class="pbody"><div class="src">YouTube · Feature</div><h4>The Best Track Car You've Never Heard Of</h4><span class="go">Watch the review →</span></div>
+      </a>
+      <a class="press-card" href="https://grassrootsmotorsports.com/articles/how-get-gt4-lap-times-without-gt4-price/" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/How-to-get-GT4-lap-times-without-the-GT4-price-_-Cardinal-Coupe-_-Articles-_-Grassroots-Motorsports.png" alt="Grassroots Motorsports Cardinal feature"></div>
+        <div class="pbody"><div class="src">Grassroots Motorsports</div><h4>GT4 Lap Times Without the GT4 Price</h4><span class="go">Read the article →</span></div>
+      </a>
+      <a class="press-card" href="https://www.youtube.com/watch?v=M9l029FvN5U" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/Jeff-finds-a-new-track-special-from-Fields-Auto-Works.-PRISHOW-YouTube.png" alt="Everyone Racers PRI feature"></div>
+        <div class="pbody"><div class="src">YouTube · PRI Show</div><h4>A New Track Special From Fields Auto Works</h4><span class="go">Watch the segment →</span></div>
+      </a>
+      <a class="press-card" href="https://youtu.be/2qKy1TnzkLk?t=726" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/03/PRI-2021-Day-3-Street-Outlaws-everywhere-Fields-Auto-Works-Cardinal-Crazy-KTM-X-BOW-and-more-Y.png" alt="Lucore Racing PRI 2021"></div>
+        <div class="pbody"><div class="src">YouTube · PRI 2021</div><h4>Fields Auto Works Cardinal at PRI</h4><span class="go">Watch the segment →</span></div>
+      </a>
+      <a class="press-card" href="https://www.youtube.com/watch?v=FFr3oSvN2OU" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2022/04/Lucore-Racing-Barber-Track-Day.png" alt="Lucore Racing Barber Track Day"></div>
+        <div class="pbody"><div class="src">YouTube · Track Day</div><h4>Lucore Racing — Barber Motorsports Park</h4><span class="go">Watch the lap →</span></div>
+      </a>
+      <a class="press-card" href="https://www.youtube.com/channel/UCCFlV2EXRA-BQlIvjc7d0fg" target="_blank" rel="noopener">
+        <div class="pimg"><img loading="lazy" src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0030_SYN5494-e1740937539315.jpg" alt="Fields Auto Works YouTube channel"></div>
+        <div class="pbody"><div class="src">YouTube · Channel</div><h4>More From the Fields Auto Works Channel</h4><span class="go">Subscribe →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / TEAM -->
+<section class="about" id="about">
+  <div class="grid">
+    <div class="photo reveal">
+      <img src="https://fieldsautoworks.com/wp-content/uploads/2025/03/0001_SYN6233-Edit.jpg" alt="Fields Auto Works hand-built craftsmanship">
+    </div>
+    <div class="copy reveal">
+      <p class="eyebrow"><span class="idx">05</span> &nbsp;About &amp; Team</p>
+      <h2 class="disp-m">Engineered in Ohio.<br>Proven on track.</h2>
+      <p>Founded in 2017 by <b>Rob Fields</b> and based in Plain City outside Columbus, Fields Auto Works designs and manufactures purpose-built sports and track-car chassis packages — with an obsession for performance, reliability, serviceability, safety, and style.</p>
+      <p>Our team of engineers, designers, and fabricators comes from the sharp end of motorsport — from <b>Can-Am</b> efforts to <b>IndyCar</b> championship-winning programs and <b>IMSA</b> campaigns. That experience shows up in the suspension geometry, the weight targets, and the hundred details most builders skip.</p>
+      <p>Put that passion and skill to work on your next sports car.</p>
+      <div class="facts">
+        <div class="f"><div class="fn">2017</div><div class="fl">Founded</div></div>
+        <div class="f"><div class="fn">~20</div><div class="fl">Builders &amp; Engineers</div></div>
+        <div class="f"><div class="fn">USA</div><div class="fl">Designed &amp; Built</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:48px">
+      <p class="eyebrow"><span class="idx">06</span> &nbsp;Get in Touch</p>
+      <h2 class="disp-l">Schedule a drive.<br>Start a build.</h2>
+      <p>We're open and actively scheduling test drives, factory visits, and track events. Tell us what you're after and we'll send the order guide.</p>
+    </div>
+    <div class="grid">
+      <form class="reveal" id="leadform" novalidate>
+        <div class="two">
+          <div class="field"><label for="fn">First Name</label><input id="fn" name="firstName" type="text" autocomplete="given-name" required></div>
+          <div class="field"><label for="ln">Last Name</label><input id="ln" name="lastName" type="text" autocomplete="family-name"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="em">Email</label><input id="em" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="ph">Phone</label><input id="ph" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field">
+          <label for="model">Model of Interest</label>
+          <select id="model" name="model">
+            <option>Cardinal Coupe</option>
+            <option>Scioto Coupe</option>
+            <option>TRZ Roadster</option>
+            <option>Not sure yet — advise me</option>
+          </select>
+        </div>
+        <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" placeholder="Intended use (street / track), timeline, powertrain preference…"></textarea></div>
+        <button type="submit" class="btn lg">Send &amp; Request Order Guide</button>
+        <p class="formnote" id="formnote">We'll reply personally — usually same day.</p>
+      </form>
+
+      <div class="cinfo reveal">
+        <div class="block">
+          <div class="ck">Factory &amp; Showroom</div>
+          <div class="cv small">8525 Rausch Drive, Suite B<br>Plain City, OH 43064</div>
+        </div>
+        <div class="block">
+          <div class="ck">Phone</div>
+          <div class="cv"><a href="tel:+16145468081">614&nbsp;·&nbsp;546&nbsp;·&nbsp;8081</a></div>
+        </div>
+        <div class="block">
+          <div class="ck">Email</div>
+          <div class="cv"><a href="mailto:info@fieldsautoworks.com">info@fieldsautoworks.com</a></div>
+        </div>
+        <div class="block" style="border-bottom:none">
+          <div class="ck">Follow the Build</div>
+          <div class="socials">
+            <a href="https://www.instagram.com/fieldsautoworks/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.facebook.com/fields.auto.works/" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.youtube.com/channel/UCCFlV2EXRA-BQlIvjc7d0fg" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.linkedin.com/company/fields-auto-works" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="name">FIELDS<b>·</b>AUTO<b>·</b>WORKS</div>
+        <div class="tl">Hand-built, street-legal track cars. Light, fast, and built to be driven.</div>
+      </div>
+      <div class="foot-nav">
+        <div class="foot-col">
+          <h5>Models</h5>
+          <a href="#cardinal">Cardinal Coupe</a>
+          <a href="#scioto">Scioto Coupe</a>
+          <a href="#trz">TRZ Roadster</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#build">The Build</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#press">Press</a>
+          <a href="#about">About</a>
+        </div>
+        <div class="foot-col">
+          <h5>Connect</h5>
+          <a href="#contact">Request Order Guide</a>
+          <a href="tel:+16145468081">614 · 546 · 8081</a>
+          <a href="mailto:info@fieldsautoworks.com">info@fieldsautoworks.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="copy">© 2026 Fields Auto Works · Plain City, Ohio · All rights reserved.</div>
+      <div class="copy">Designed &amp; built in the USA.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="x" id="lbx">CLOSE ✕</div>
+  <div class="nav-btn prev" id="lbprev">‹</div>
+  <img id="lbimg" src="" alt="">
+  <div class="nav-btn next" id="lbnext">›</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Sticky header shrink
+  var header = document.getElementById('top');
+  function onScroll(){ if(window.scrollY > 40){ header.classList.add('shrunk'); } else { header.classList.remove('shrunk'); } }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Mobile nav
+  var burger = document.getElementById('burger'), links = document.getElementById('navlinks');
+  function toggleNav(){ burger.classList.toggle('open'); links.classList.toggle('open'); }
+  burger.addEventListener('click', toggleNav);
+  burger.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleNav(); }});
+  links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ burger.classList.remove('open'); links.classList.remove('open'); }); });
+
+  // Scroll reveal
+  if('IntersectionObserver' in window && !rm){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Gallery lightbox
+  var figs = Array.prototype.slice.call(document.querySelectorAll('#grid figure img'));
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  var lbx = document.getElementById('lbx'), lbprev = document.getElementById('lbprev'), lbnext = document.getElementById('lbnext');
+  var cur = 0;
+  function show(i){ cur = (i + figs.length) % figs.length; lbimg.src = figs[cur].src; lbimg.alt = figs[cur].alt; }
+  function open(i){ show(i); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+  function close(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+  figs.forEach(function(img,i){ img.parentElement.addEventListener('click', function(){ open(i); }); });
+  lbx.addEventListener('click', close);
+  lbprev.addEventListener('click', function(){ show(cur-1); });
+  lbnext.addEventListener('click', function(){ show(cur+1); });
+  lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowLeft') show(cur-1);
+    if(e.key==='ArrowRight') show(cur+1);
+  });
+
+  // Form (demo handler — wire to GHL / CRM endpoint on deploy)
+  var form = document.getElementById('leadform'), note = document.getElementById('formnote');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var fn = form.firstName.value.trim(), em = form.email.value.trim();
+    if(!fn || !em){ note.textContent = 'Please add your first name and email.'; note.style.color = 'var(--red-bright)'; return; }
+    note.textContent = 'Thanks, ' + fn + ' — your request is in. We\'ll be in touch shortly.';
+    note.style.color = 'var(--amber)';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
